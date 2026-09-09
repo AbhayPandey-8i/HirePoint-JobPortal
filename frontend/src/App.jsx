@@ -1,12 +1,22 @@
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const appRouter = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+]);
 
 function App() {
-  // const [count, setCount] = useState(0);
-
   return (
     <>
-      <Register />
+      <RouterProvider router={appRouter} />
     </>
   );
 }
