@@ -1,6 +1,7 @@
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Toaster } from "sonner";
 
 const appRouter = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ function App() {
   return (
     <>
       <RouterProvider router={appRouter} />
+      <Toaster position="top-right" richColors />
     </>
   );
 }

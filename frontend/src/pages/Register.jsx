@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
+import api from "../api/axios";
+import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "sonner";
 
 const Register = () => {
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    role: "candidate",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.post("/user/register", user);
+      if (res.data.success) {
+        toast.success(res.data.message || "Account Created Successfully");
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          "Something went wrong. Please try again after sometime",
+      );
+      console.log(error.response?.data);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col lg:flex-row font-sans bg-[#f2f3f6] text-[#0d0f17] antialiased">
       {/* LEFT / BRAND PANEL */}
@@ -68,7 +97,7 @@ const Register = () => {
             </p>
           </div>
 
-          <form className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label
                 htmlFor="fullName"
@@ -94,6 +123,10 @@ const Register = () => {
                 <input
                   id="fullName"
                   type="text"
+                  value={user.fullName}
+                  onChange={(e) =>
+                    setUser({ ...user, fullName: e.target.value })
+                  }
                   placeholder="Jordan Blake"
                   className="w-full rounded-xl border border-[#e3e5ec] bg-white py-3 pl-11 pr-4 text-[15px] text-[#0d0f17] placeholder:text-[#6b7186]/70 outline-none transition focus:border-[#232939] focus:ring-4 focus:ring-[#0d0f17]/5"
                 />
@@ -125,6 +158,8 @@ const Register = () => {
                 <input
                   id="email"
                   type="email"
+                  value={user.email}
+                  onChange={(e) => setUser({ ...user, email: e.target.value })}
                   placeholder="jordan@company.com"
                   className="w-full rounded-xl border border-[#e3e5ec] bg-white py-3 pl-11 pr-4 text-[15px] text-[#0d0f17] placeholder:text-[#6b7186]/70 outline-none transition focus:border-[#232939] focus:ring-4 focus:ring-[#0d0f17]/5"
                 />
@@ -156,6 +191,10 @@ const Register = () => {
                 <input
                   id="password"
                   type="password"
+                  value={user.password}
+                  onChange={(e) =>
+                    setUser({ ...user, password: e.target.value })
+                  }
                   placeholder="At least 8 characters"
                   className="w-full rounded-xl border border-[#e3e5ec] bg-white py-3 pl-11 pr-11 text-[15px] text-[#0d0f17] placeholder:text-[#6b7186]/70 outline-none transition focus:border-[#232939] focus:ring-4 focus:ring-[#0d0f17]/5"
                 />
@@ -183,13 +222,23 @@ const Register = () => {
               <div className="grid grid-cols-2 gap-2 rounded-xl bg-[#f2f3f6] p-1 ring-1 ring-[#e3e5ec]">
                 <button
                   type="button"
-                  className="rounded-lg bg-[#0d0f17] py-2.5 text-sm font-medium text-white shadow-sm"
+                  onClick={(e) => setUser({ ...user, role: "candidate" })}
+                  className={`rounded-lg py-2.5 text-sm font-medium transition-colors ${
+                    user.role === "candidate"
+                      ? "bg-[#0d0f17] text-white shadow-sm hover:bg-[#0d0f17]"
+                      : "text-[#333a52] hover:bg-gray-600 hover:text-white"
+                  }`}
                 >
                   Candidate
                 </button>
                 <button
                   type="button"
-                  className="rounded-lg py-2.5 text-sm font-medium text-[#333a52] hover:bg-white/60"
+                  onClick={(e) => setUser({ ...user, role: "employer" })}
+                  className={`rounded-lg py-2.5 text-sm font-medium transition-colors ${
+                    user.role === "employer"
+                      ? "bg-[#0d0f17] text-white shadow-sm hover:bg-[#0d0f17]"
+                      : "text-[#333a52] hover:bg-gray-600 hover:text-white"
+                  }`}
                 >
                   Employer
                 </button>
