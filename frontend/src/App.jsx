@@ -1,9 +1,17 @@
+import { useEffect } from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "sonner";
+import { getProfile } from "./api/user.api";
+import { useDispatch } from "react-redux";
+import { setUser } from "../features/authSlice";
 
 const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    // element: <Home />,
+  },
   {
     path: "/login",
     element: <Login />,
@@ -15,6 +23,25 @@ const appRouter = createBrowserRouter([
 ]);
 
 function App() {
+  const dispatch = useDispatch();
+
+  //getting authenticate user
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const data = await getProfile();
+
+        dispatch(setUser(data.user)); //user data/info coming from getProfile controller is now storing in redux user state
+
+        console.log("Logged in user:", data.user);
+      } catch (error) {
+        console.log("Profile error:", error.response?.data?.message);
+      }
+    };
+
+    fetchProfile();
+  }, [dispatch]);
+
   return (
     <>
       <RouterProvider router={appRouter} />

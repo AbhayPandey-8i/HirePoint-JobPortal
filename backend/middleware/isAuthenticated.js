@@ -20,7 +20,7 @@ export const isAuthenticated = async (req, res, next) => {
       });
     }
 
-    req.userId = decode.userId;
+    req.userId = decode.userId; //this req.userId has a authenticated user
     next();
   } catch (error) {
     console.log("Authentication failed: ", error);

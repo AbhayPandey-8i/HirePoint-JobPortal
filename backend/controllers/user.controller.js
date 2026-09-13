@@ -32,16 +32,32 @@ export const register = async (req, res) => {
       role: role || "candidate",
     });
 
-    return res.status(201).json({
-      success: true,
-      message: "Account created successfully",
-      user: {
-        id: newUser._id,
-        fullName: newUser.fullName,
-        email: newUser.email,
-        role: newUser.role,
-      },
+    //giving user JWT after register so that he do not have to log in after register
+    const tokenData = {
+      userId: newUser._id,
+    };
+
+    const token = await jwt.sign(tokenData, process.env.JWT_SECRET_KEY, {
+      expiresIn: "1d",
     });
+
+    return res
+      .status(201)
+      .cookie("token", token, {
+        maxAge: 1 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        sameSite: "Strict",
+      })
+      .json({
+        success: true,
+        message: "Account created successfully",
+        user: {
+          id: newUser._id,
+          fullName: newUser.fullName,
+          email: newUser.email,
+          role: newUser.role,
+        },
+      });
   } catch (error) {
     console.log(error);
 
@@ -124,5 +140,31 @@ export const logout = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+  }
+};
+
+//getProfile of authenticated user
+export const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        success: true,
+        message: "user not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 };

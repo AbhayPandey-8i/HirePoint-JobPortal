@@ -1,6 +1,34 @@
 import React from "react";
+import { useState } from "react";
+import api from "../api/axios";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.post("/user/login", user);
+      if (res.data.success) {
+        toast.success(res.data.message || "Signed in successfully");
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          "Something went wrong. Please try again after sometime",
+      );
+      console.log(error);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col lg:flex-row font-sans bg-[#f2f3f6] text-[#0d0f17] antialiased">
       {/* LEFT / BRAND PANEL */}
@@ -67,7 +95,7 @@ const Login = () => {
             </p>
           </div>
 
-          <form className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label
                 htmlFor="email"
@@ -93,6 +121,8 @@ const Login = () => {
                 <input
                   id="email"
                   type="email"
+                  value={user.email}
+                  onChange={(e) => setUser({ ...user, email: e.target.value })}
                   placeholder="jordan@company.com"
                   className="w-full rounded-xl border border-[#e3e5ec] bg-white py-3 pl-11 pr-4 text-[15px] text-[#0d0f17] placeholder:text-[#6b7186]/70 outline-none transition focus:border-[#232939] focus:ring-4 focus:ring-[#0d0f17]/5"
                 />
@@ -132,6 +162,10 @@ const Login = () => {
                 <input
                   id="password"
                   type="password"
+                  value={user.password}
+                  onChange={(e) =>
+                    setUser({ ...user, password: e.target.value })
+                  }
                   placeholder="Enter your password"
                   className="w-full rounded-xl border border-[#e3e5ec] bg-white py-3 pl-11 pr-11 text-[15px] text-[#0d0f17] placeholder:text-[#6b7186]/70 outline-none transition focus:border-[#232939] focus:ring-4 focus:ring-[#0d0f17]/5"
                 />
