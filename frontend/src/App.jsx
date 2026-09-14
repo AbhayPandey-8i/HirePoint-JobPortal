@@ -31,7 +31,7 @@ function App() {
       try {
         const data = await getProfile();
 
-        dispatch(setUser(data.user)); //user data/info coming from getProfile controller is now storing in redux user state
+        dispatch(setUser(data.user)); //user data/info coming from getProfile controller is now storing in redux "user" state
 
         console.log("Logged in user:", data.user);
       } catch (error) {
