@@ -7,7 +7,7 @@ export const isEmployer = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "User not found",
+        message: "User not found.",
       });
     }
     if (user.role !== "employer") {
