@@ -1,3 +1,6 @@
+import { Job } from "../model/job.model.js";
+
+//createJob
 export const createJob = async (req, res) => {
   try {
     const {
@@ -46,6 +49,25 @@ export const createJob = async (req, res) => {
     });
   } catch (error) {
     console.log("Create job error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+//getAllJob
+export const getAllJob = async (req, res) => {
+  try {
+    const jobs = await Job.find().sort({ createdAt: -1 }); //.sort({createdAt: -1}) this give latest job first
+
+    return res.status(200).json({
+      success: true,
+      jobs,
+    });
+  } catch (error) {
+    console.log("Get all jobs error:", error);
 
     return res.status(500).json({
       success: false,
