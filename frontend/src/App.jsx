@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import { getProfile } from "./api/user.api";
 import { useDispatch } from "react-redux";
 import { setUser } from "../features/authSlice";
+import Jobs from "./pages/Jobs";
 
 const appRouter = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/jobs",
+    element: <Jobs />,
   },
 ]);
 

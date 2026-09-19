@@ -20,7 +20,7 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 //routes
 app.use("/api/v1/user", userRoutes);
-app.use(".api/v1/job", jobRoutes);
+app.use("/api/v1/job", jobRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running at PORT:${PORT}`);

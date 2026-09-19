@@ -5,6 +5,7 @@ export const createJob = async (req, res) => {
   try {
     const {
       title,
+      companyName,
       description,
       requirements,
       salary,
@@ -16,6 +17,7 @@ export const createJob = async (req, res) => {
 
     if (
       !title ||
+      !companyName ||
       !description ||
       !requirements ||
       !salary ||
@@ -32,6 +34,7 @@ export const createJob = async (req, res) => {
 
     const job = await Job.create({
       title,
+      companyName,
       description,
       requirements,
       salary,
@@ -68,6 +71,34 @@ export const getAllJob = async (req, res) => {
     });
   } catch (error) {
     console.log("Get all jobs error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error.",
+    });
+  }
+};
+
+//getJobById, bascially getting single job
+export const getJobById = async (req, res) => {
+  try {
+    const { id } = req.params; //getting id from endpoint of getJob which express gives itself
+
+    const job = await Job.findById(id);
+
+    if (!job) {
+      return res.status(404).json({
+        success: false,
+        message: "Job not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      job,
+    });
+  } catch (error) {
+    console.log("Get job by ID error:", error);
 
     return res.status(500).json({
       success: false,
