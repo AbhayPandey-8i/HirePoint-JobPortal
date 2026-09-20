@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import api from "../api/axios";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Login = () => {
       const res = await api.post("/user/login", user);
       if (res.data.success) {
         toast.success(res.data.message || "Signed in successfully");
-        navigate("/");
+        navigate("/jobs");
       }
     } catch (error) {
       toast.error(
@@ -86,12 +86,12 @@ const Login = () => {
             </h2>
             <p className="mt-2 text-sm text-[#6b7186]">
               New to HirePoint?{" "}
-              <a
-                href="#"
+              <Link
+                to={"/register"}
                 className="font-medium text-[#0d0f17] underline underline-offset-4 decoration-[#c2c6d4] hover:decoration-[#0d0f17]"
               >
                 Create an account
-              </a>
+              </Link>
             </p>
           </div>
 

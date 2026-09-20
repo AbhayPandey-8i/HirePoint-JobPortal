@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import api from "../api/axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 
 const Register = () => {
@@ -19,7 +19,7 @@ const Register = () => {
       const res = await api.post("/user/register", user);
       if (res.data.success) {
         toast.success(res.data.message || "Account Created Successfully");
-        navigate("/");
+        navigate("/jobs");
       }
     } catch (error) {
       toast.error(
@@ -88,12 +88,12 @@ const Register = () => {
             </h2>
             <p className="mt-2 text-sm text-[#6b7186]">
               Already on HirePoint?{" "}
-              <a
-                href="#"
+              <Link
+                to={"/login"}
                 className="font-medium text-[#0d0f17] underline underline-offset-4 decoration-[#c2c6d4] hover:decoration-[#0d0f17]"
               >
                 Sign in
-              </a>
+              </Link>
             </p>
           </div>
 

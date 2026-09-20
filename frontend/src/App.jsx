@@ -5,8 +5,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "sonner";
 import { getProfile } from "./api/user.api";
 import { useDispatch } from "react-redux";
-import { setUser } from "../features/authSlice";
+import { setUser } from "./features/authSlice";
 import Jobs from "./pages/Jobs";
+import CreateJob from "./pages/CreateJob";
 
 const appRouter = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/jobs",
     element: <Jobs />,
+  },
+  {
+    path: "/create-job",
+    element: <CreateJob />,
   },
 ]);
 

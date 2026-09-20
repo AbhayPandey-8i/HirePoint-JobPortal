@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 import JobCard from "../component/JobCard";
 import JobDetails from "../component/JobDetails";
+import Navbar from "../component/Navbar";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -108,7 +109,9 @@ const Jobs = () => {
         </div>
       </div> */}
 
-      <div className="mb-6 max-w-4xl mx-auto ">
+      <Navbar />
+
+      <div className="mb-6 mt-6 max-w-4xl mx-auto ">
         <div className="flex flex-col overflow-hidden rounded-2xl border border-[#e3e5ec] bg-white shadow-sm sm:flex-row sm:items-center">
           {/* Job title / keyword */}
           <div className="flex flex-1 items-center gap-3 px-5 py-3.5">
