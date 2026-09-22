@@ -185,10 +185,11 @@ const Jobs = () => {
       </div>
 
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[420px_1fr]">
+        <span className="font-semibold my-2 mx-2 text-2xl">Jobs for you</span>
+        <div className="grid grid-cols-1 mt-1 items-start gap-6 lg:grid-cols-[420px_1fr]">
           {/* Left — Job List */}
           <div
-            className={`custom-scrollbar space-y-3 lg:sticky lg:top-6 lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:pr-2 ${
+            className={`custom-scrollbar space-y-3 lg:sticky lg:top-24 lg:max-h-[calc(100vh-140px)] lg:overflow-y-auto lg:pr-2 ${
               mobileView === "details" ? "hidden lg:block" : "block"
             }`}
           >
@@ -245,7 +246,7 @@ const Jobs = () => {
 
           {/* Right — Job Details */}
           <div
-            className={`lg:sticky lg:top-6 ${
+            className={`lg:sticky lg:top-24 ${
               mobileView === "list" ? "hidden lg:block" : "block"
             }`}
           >

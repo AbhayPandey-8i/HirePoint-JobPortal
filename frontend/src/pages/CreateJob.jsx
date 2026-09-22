@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import api from "../api/axios";
+import Navbar from "../component/Navbar";
+import { toast } from "sonner";
 
 const CreateJob = () => {
   const [jobTitle, setJobTitle] = useState("");
@@ -37,38 +40,42 @@ const CreateJob = () => {
     setSkills(skills.filter((_, i) => i !== indexToRemove));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const jobData = {
+      title: jobTitle,
+      companyName,
+      description,
+      requirements,
+      salary,
+      location,
+      jobType,
+      experienceLevel,
+      skills,
+    };
+
+    try {
+      const response = await api.post("/job/create", jobData);
+      if (response.data.success) {
+        toast.success(response.data.message || "Job Posted Successfully");
+      }
+
+      // console.log(response.data);
+    } catch (error) {
+      toast.error(
+        error.response.data.message ||
+          "Something went wrong. Please try again after sometime",
+      );
+      console.log("Create job error:", error);
+    }
   };
 
   return (
     <div className="min-h-screen font-sans bg-[#f2f3f6] text-[#0d0f17] antialiased">
       {/* TOP BAR */}
-      <div className="bg-[#0d0f17] text-[#f2f3f6]">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 sm:px-8">
-          <a href="#" className="inline-flex items-center gap-3">
-            <span className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-[#232939] ring-1 ring-white/10">
-              <span className="h-4 w-4 rounded-full border-2 border-white/70"></span>
-              <span className="absolute h-1.5 w-1.5 rounded-full bg-[#C8FF4D]"></span>
-            </span>
-            <span className="text-lg font-semibold tracking-tight">
-              HirePoint
-            </span>
-          </a>
-          <div className="flex items-center gap-3">
-            {/* <button
-              type="button"
-              className="hidden rounded-lg px-4 py-2 text-sm font-medium text-[#c2c6d4] transition hover:bg-white/5 sm:block"
-            >
-              Save as draft
-            </button> */}
-            <span className="rounded-full bg-white/5 px-3.5 py-1.5 text-xs font-medium text-[#c2c6d4] ring-1 ring-white/10">
-              Employer workspace
-            </span>
-          </div>
-        </div>
-      </div>
-
+      <Navbar />
+      {/*  */}
       {/* PAGE CONTENT */}
       <div className="mx-auto max-w-6xl px-6 py-12 sm:px-8">
         <div className="mb-10">
@@ -301,9 +308,7 @@ const CreateJob = () => {
                         </option>
                         <option>Full-time</option>
                         <option>Part-time</option>
-                        <option>Contract</option>
                         <option>Internship</option>
-                        <option>Remote</option>
                       </select>
                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-[#6b7186]">
                         <svg
@@ -349,13 +354,11 @@ const CreateJob = () => {
                         onChange={(e) => setExperienceLevel(e.target.value)}
                         className="w-full appearance-none rounded-xl border border-[#e3e5ec] bg-white py-3 pl-11 pr-10 text-[15px] text-[#0d0f17] outline-none transition focus:border-[#232939] focus:ring-4 focus:ring-[#0d0f17]/5"
                       >
-                        <option value="" disabled>
-                          Select experience level
-                        </option>
-                        <option>Entry level</option>
-                        <option>Mid level</option>
-                        <option>Senior level</option>
-                        <option>Lead / Principal</option>
+                        <option value="">Select experience level</option>
+                        <option value="Fresher">Fresher</option>
+                        <option value="Junior">Junior</option>
+                        <option value="Mid-level">Mid-level</option>
+                        <option value="Senior">Senior</option>
                       </select>
                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-[#6b7186]">
                         <svg

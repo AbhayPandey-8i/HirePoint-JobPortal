@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../api/axios";
 import { toast } from "sonner";
 import { logout } from "../features/authSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -27,18 +27,18 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-[#e3e5ec] bg-white/80 backdrop-blur-xl">
+    <nav className="sticky top-0 z-50  border-b bg-[#0d0f17] border-[#e3e5ec]  backdrop-blur-xl">
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* LEFT — LOGO + NAVIGATION */}
         <div className="flex items-center gap-9">
           {/* HirePoint Logo */}
           <a href="#" className="group flex items-center gap-3">
-            <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[#0d0f17] shadow-sm transition-transform duration-200 group-hover:scale-105">
-              <span className="h-5 w-5 rounded-full border-2 border-white/80"></span>
-              <span className="absolute h-1.5 w-1.5 rounded-full bg-[#C8FF4D] shadow-[0_0_8px_#C8FF4D]"></span>
+            <span className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-[#232939] ring-1 ring-white/10">
+              <span className="h-4 w-4 rounded-full border-2 border-white/70"></span>
+              <span className="absolute h-1.5 w-1.5 rounded-full bg-[#C8FF4D]"></span>
             </span>
 
-            <span className="text-[20px] font-semibold tracking-tight text-[#0d0f17]">
+            <span className="text-[20px] font-semibold tracking-tight text-white">
               HirePoint
             </span>
           </a>
@@ -47,17 +47,17 @@ const Navbar = () => {
           <div className="hidden items-center gap-1 md:flex">
             <a
               href="#"
-              className="rounded-lg px-4 py-2 text-[14px] font-medium text-[#333a52] transition-all duration-200 hover:bg-[#f2f3f6] hover:text-[#0d0f17]"
+              className="rounded-lg hover:bg-[#b8ef3d] px-4 py-2 text-[14px] font-medium text-white transition-all duration-200  hover:text-[#0d0f17]"
             >
               Home
             </a>
 
-            <a
-              href="#"
-              className="rounded-lg px-4 py-2 text-[14px] font-medium text-[#333a52] transition-all duration-200 hover:bg-[#f2f3f6] hover:text-[#0d0f17]"
+            <Link
+              to={"/jobs"}
+              className="rounded-lg px-4 hover:bg-[#b8ef3d] py-2 text-[14px] font-medium text-white transition-all duration-200  hover:text-[#0d0f17]"
             >
               Jobs
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -208,7 +208,10 @@ const Navbar = () => {
                   </button>
 
                   {/* Create Job */}
-                  <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-[#333a52] transition-colors hover:bg-[#f2f3f6] hover:text-[#0d0f17]">
+                  <Link
+                    to={"/create-job"}
+                    className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-[#333a52] transition-colors hover:bg-[#f2f3f6] hover:text-[#0d0f17]"
+                  >
                     <svg
                       className="h-[18px] w-[18px] text-[#6b7186]"
                       viewBox="0 0 24 24"
@@ -221,7 +224,7 @@ const Navbar = () => {
                       <path d="M12 5v14M5 12h14" />
                     </svg>
                     Create Job
-                  </button>
+                  </Link>
 
                   {/* My Jobs */}
                   <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-[#333a52] transition-colors hover:bg-[#f2f3f6] hover:text-[#0d0f17]">

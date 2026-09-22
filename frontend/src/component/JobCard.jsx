@@ -30,84 +30,87 @@ const ThumbsDownIcon = () => (
 
 const JobCard = ({ job, isSelected }) => {
   return (
-    <div
-      className={`group relative cursor-pointer overflow-hidden rounded-2xl border p-5 transition-all duration-200 ${
-        isSelected
-          ? "border-[#0d0f17] bg-[#0d0f17] text-[#f2f3f6] shadow-lg shadow-[#0d0f17]/15"
-          : "border-[#e3e5ec] bg-white text-[#0d0f17] hover:-translate-y-0.5 hover:border-[#c2c6d4] hover:shadow-md"
-      }`}
-    >
-      {isSelected && (
-        <span className="absolute right-0 top-0 h-16 w-16 rounded-bl-full bg-[#C8FF4D]/10" />
-      )}
-
-      {/* Top row: badge + save */}
-      <div className="flex items-start justify-between">
-        <span
-          className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${
-            isSelected
-              ? "bg-[#C8FF4D] text-[#0d0f17]"
-              : "bg-[#0d0f17]/[0.06] text-[#0d0f17]"
-          }`}
-        >
-          Easily apply
-        </span>
-
-        <button
-          onClick={(e) => e.stopPropagation()}
-          className={`rounded-lg p-1.5 transition ${
-            isSelected
-              ? "text-[#c2c6d4] hover:bg-white/10 hover:text-[#C8FF4D]"
-              : "text-[#6b7186] hover:bg-[#f2f3f6] hover:text-[#0d0f17]"
-          }`}
-          aria-label="Save job"
-        >
-          <BookmarkIcon />
-        </button>
-      </div>
-
-      {/* Title */}
-      <h2 className="mt-3 text-lg hover:underline font-semibold leading-snug">
-        {job.title}
-      </h2>
-
-      {/* Company */}
-      <p
-        className={`mt-1 text-sm ${isSelected ? "text-[#c2c6d4]" : "text-[#333a52]"}`}
+    <div>
+      <div
+        className={`group relative cursor-pointer overflow-hidden rounded-2xl border p-5 transition-all duration-200 ${
+          isSelected
+            ? "border-[#0d0f17] bg-[#0d0f17] text-[#f2f3f6] shadow-lg shadow-[#0d0f17]/15"
+            : "border-[#e3e5ec] bg-white text-[#0d0f17] hover:-translate-y-0.5 hover:border-[#c2c6d4] hover:shadow-md"
+        }`}
       >
-        {job.companyName}
-      </p>
+        {isSelected && (
+          <span className="absolute right-0 top-0 h-16 w-16 rounded-bl-full bg-[#C8FF4D]/10" />
+        )}
 
-      {/* Location */}
-      <p
-        className={`mt-1.5 flex items-center gap-1 text-sm ${isSelected ? "text-[#8a90a3]" : "text-[#6b7186]"}`}
-      >
-        <span>📍</span> {job.location}
-      </p>
+        {/* Top row: badge + save */}
 
-      {/* Bottom row: salary + dismiss */}
-      <div className="mt-4 flex items-center justify-between">
-        <span
-          className={`rounded-lg px-2.5 py-1.5 text-xs font-medium ${
-            isSelected
-              ? "bg-white/10 text-[#f2f3f6]"
-              : "bg-[#f2f3f6] text-[#333a52]"
-          }`}
+        <div className="flex items-start justify-between">
+          <span
+            className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${
+              isSelected
+                ? "bg-[#C8FF4D] text-[#0d0f17]"
+                : "bg-[#0d0f17]/[0.06] text-[#0d0f17]"
+            }`}
+          >
+            Easily apply
+          </span>
+
+          <button
+            onClick={(e) => e.stopPropagation()}
+            className={`rounded-lg p-1.5 transition ${
+              isSelected
+                ? "text-[#c2c6d4] hover:bg-white/10 hover:text-[#C8FF4D]"
+                : "text-[#6b7186] hover:bg-[#f2f3f6] hover:text-[#0d0f17]"
+            }`}
+            aria-label="Save job"
+          >
+            <BookmarkIcon />
+          </button>
+        </div>
+
+        {/* Title */}
+        <h2 className="mt-3 text-lg hover:underline font-semibold leading-snug">
+          {job.title}
+        </h2>
+
+        {/* Company */}
+        <p
+          className={`mt-1 text-sm ${isSelected ? "text-[#c2c6d4]" : "text-[#333a52]"}`}
         >
-          ₹{job.salary?.toLocaleString("en-IN")} a year
-        </span>
+          {job.companyName}
+        </p>
 
-        <button
-          onClick={(e) => e.stopPropagation()}
-          className={`rounded-lg p-1.5 transition ${
-            isSelected
-              ? "text-[#c2c6d4] hover:bg-white/10 hover:text-red-400"
-              : "text-[#6b7186] hover:bg-red-50 hover:text-red-500"
-          }`}
-          aria-label="Not interested"
+        {/* Location */}
+        <p
+          className={`mt-1.5 flex items-center gap-1 text-sm ${isSelected ? "text-[#8a90a3]" : "text-[#6b7186]"}`}
         >
-          <ThumbsDownIcon />
-        </button>
+          <span>📍</span> {job.location}
+        </p>
+
+        {/* Bottom row: salary + dismiss */}
+        <div className="mt-4 flex items-center justify-between">
+          <span
+            className={`rounded-lg px-2.5 py-1.5 text-xs font-medium ${
+              isSelected
+                ? "bg-white/10 text-[#f2f3f6]"
+                : "bg-[#f2f3f6] text-[#333a52]"
+            }`}
+          >
+            ₹{job.salary}
+          </span>
+
+          <button
+            onClick={(e) => e.stopPropagation()}
+            className={`rounded-lg p-1.5 transition ${
+              isSelected
+                ? "text-[#c2c6d4] hover:bg-white/10 hover:text-red-400"
+                : "text-[#6b7186] hover:bg-red-50 hover:text-red-500"
+            }`}
+            aria-label="Not interested"
+          >
+            <ThumbsDownIcon />
+          </button>
+        </div>
       </div>
     </div>
   );
