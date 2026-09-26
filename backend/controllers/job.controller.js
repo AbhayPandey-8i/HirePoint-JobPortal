@@ -42,7 +42,7 @@ export const createJob = async (req, res) => {
       jobType,
       experienceLevel,
       skills,
-      createdBy: req.userId,
+      createdBy: req.userId, //tells us which user creates which job.
     });
 
     return res.status(201).json({
@@ -99,6 +99,112 @@ export const getJobById = async (req, res) => {
     });
   } catch (error) {
     console.log("Get job by ID error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+//getMyJobs
+export const getMyJobs = async (req, res) => {
+  try {
+    const jobs = await Job.find({ createdBy: req.userId });
+
+    return res.status(200).json({
+      success: true,
+      jobs,
+    });
+  } catch (error) {
+    console.log("Get my jobs error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+//updateJobs or edit
+export const updateJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const job = await Job.findOne({
+      _id: id,
+      createdBy: req.userId,
+    });
+
+    if (!job) {
+      return res.status(404).json({
+        success: false,
+        message: "Job not found",
+      });
+    }
+
+    const {
+      title,
+      companyName,
+      description,
+      requirements,
+      salary,
+      location,
+      jobType,
+      experienceLevel,
+      skills,
+    } = req.body;
+
+    job.title = title;
+    job.companyName = companyName;
+    job.description = description;
+    job.requirements = requirements;
+    job.salary = salary;
+    job.location = location;
+    job.jobType = jobType;
+    job.experienceLevel = experienceLevel;
+    job.skills = skills;
+
+    await job.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Job updated successfully",
+      job,
+    });
+  } catch (error) {
+    console.log("Update job error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error.",
+    });
+  }
+};
+
+//deleteJobs
+export const deleteJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const job = await Job.findOneAndDelete({
+      _id: id,
+      createdBy: req.userId,
+    });
+
+    if (!job) {
+      return res.status(404).json({
+        success: false,
+        message: "Job not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Job deleted successfully",
+    });
+  } catch (error) {
+    console.log("Delete job error:", error);
 
     return res.status(500).json({
       success: false,

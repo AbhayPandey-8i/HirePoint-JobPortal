@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "./features/authSlice";
 import Jobs from "./pages/Jobs";
 import CreateJob from "./pages/CreateJob";
+import MyJobs from "./pages/MyJobs";
 
 const appRouter = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/create-job",
     element: <CreateJob />,
+  },
+  {
+    path: "/my-jobs",
+    element: <MyJobs />,
   },
 ]);
 

@@ -227,7 +227,10 @@ const Navbar = () => {
                   </Link>
 
                   {/* My Jobs */}
-                  <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-[#333a52] transition-colors hover:bg-[#f2f3f6] hover:text-[#0d0f17]">
+                  <Link
+                    to={"/my-jobs"}
+                    className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-[#333a52] transition-colors hover:bg-[#f2f3f6] hover:text-[#0d0f17]"
+                  >
                     <svg
                       className="h-[18px] w-[18px] text-[#6b7186]"
                       viewBox="0 0 24 24"
@@ -241,7 +244,7 @@ const Navbar = () => {
                       <path d="M8 9h8M8 13h8M8 17h5" />
                     </svg>
                     My Jobs
-                  </button>
+                  </Link>
                 </div>
               )}
 
