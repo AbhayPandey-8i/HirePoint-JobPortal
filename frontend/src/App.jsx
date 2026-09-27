@@ -60,7 +60,7 @@ function App() {
   return (
     <>
       <RouterProvider router={appRouter} />
-      <Toaster position="top-right" richColors />
+      <Toaster position="bottom-right" richColors />
     </>
   );
 }
