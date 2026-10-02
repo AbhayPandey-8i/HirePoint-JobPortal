@@ -5,6 +5,7 @@ import userRoutes from "./routes/user.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import jobRoutes from "./routes/job.routes.js";
+import candidateProfileRoute from "./routes/candidateProfileRoute.js";
 
 dotenv.config({});
 connectDb();
@@ -21,6 +22,7 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 //routes
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/job", jobRoutes);
+app.use("/api/v1/profile", candidateProfileRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running at PORT:${PORT}`);
