@@ -54,7 +54,7 @@ export const getCandidateProfile = async (req, res) => {
     if (!profile) {
       return res.status(404).json({
         success: false,
-        message: "Profile not found",
+        message: "Profile not found.",
       });
     }
 
