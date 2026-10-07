@@ -38,7 +38,7 @@ export const createCandidateProfile = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message: "Failed to create profile",
+      message: "Failed to create profile.",
     });
   }
 };
